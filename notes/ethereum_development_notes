@@ -1,0 +1,329 @@
+World wide web has a client server model - a central server with finite compute infrastructure
+
+Peer to peer model - no central
+
+Bitcoin
+============
+bitcoin - peer to peer network and digital network
+each bit coin, lives on the peers on the bitcoin network
+each coin has a identity and owner
+owner can spend the coin
+no central authority in control
+
+Bitcoin Network is public
+anyone can create a public and private key to operate on the network.
+
+transactions are visible to every peer
+transactions incur a fee
+
+
+Blockchain 101:
+
+1. Decentralized network for exchage of value
+2. Value on a blockchain is bitcoin
+3. Distributed ledger - peers in the network have a copy of the ledger
+4. Blocks and chaining - can only be appended on the BC
+
+5. How data is managed on the BC
+
+trnasactions are managed in units knows as blocks
+Block#0 is called genesis block
+
+it contains a index, timestamp, hash value along with the transaction data,
+it also contains a previous hash value, which points to the previous hash block
+
+6. Immutability:
+
+7. Consensus How do you ensure that data is consistent across the network?
+Consensus = protocol by which peers agree on state of the ledger
+ensures all peers in the netwrok has exactly the same copy of ledger
+ensure fraudulent transactions kept out of ledger
+gaurantees to record transactions in chronological order
+
+some consensus protocols
+1. proof of work
+2. proof of stake
+3. tendermint
+
+Cryptography used for trust and accountability
+
+Ethereum 101:
+permission less public blockchain network like bitcoin
+EN: offers distributed storage and compute
+EN: 2013 vitalik buterin proposed ethereum which has support for scripting
+
+
+smart contract: its computer code
+-lives on the network
+enforces rules
+performs negotiated actions
+
+theDapps.com faucet secret
+ROPSTEN ethers in section#3
+secret: onerequestonly
+
+Password for zip file:  ethweb3
+
+
+
+frontend connects to the EN
+backend is in smart contract deployed on the EN
+data is stored in the instance of smart contract
+
+resources are on a public network
+
+users interaction ends up on invocation of a contract
+the fee is paid by the user interaction in terms of gas/fee, miner collects this fee
+
+
+Frontends are implemented using HTML,CSS and JS
+
+Smart contract is implemented in solidity or serpent (lisp like language)
+
+frontend connects to backend using web3
+
+++ Ethers
+value token on the EN
+5 ethers created as reward for every block ; roughly every 14 secs
+sometimes 2-3 ethers for non-winning miners
+contract invocation - users pay by enthers
+incentive for the miners
+
+
+++ Ethereum virtual machine (EVM)
+software that can execute ethereum bytecode
+follows the EVM spec (Ethereum protocol)
+Runs as a process ona a computer/server
+ EVM = memory area + statcks + execution engine
+EVM is implemented in multiple language
+
+++Gas
+user invoking the transaction pays ofr the execution
+units by which the contract invocation cost is measured (EVM resource usage metric)
+++gas calculations
+
+transaction -> instrcutions -> execution (E)-> storage(S)
+
+fee paid by the originator = type/number of instructions + amount of storage
+
+each EVM opcode has fixed gas cost associated with it
+
+fee calculation = gasUsed
+
+transaction fee = gasUsed*gasPrice
+
+transaction fee parameters
+	originator has two paramaeters they can specify , start gas , pas price
+	start gas = max units of gas originator is willing to spend
+	gas price = per unit price that originator willing to pay
+
+Processing
+	startGas*GasPrice is put in a escrow account
+	fee paid = gasused*gasPrice , if FP < Escrow amount, refund issued
+	if FP > Escrow , amount is used , no changes made, exception thorn called out of gas exception
+
+Ethereum networks
+	live network -> public network, live, network id = 1
+	Test-Net -> ethers used on this network don't have any value, network id = 3 Ropsten (Current)
+	private network -> network id is assigned by network create
+	private nws are create for data privacy
+	for forming a consortium
+	private nws are permissioned
+	internal transactions and contracts
+
+
+bloackchain explorers
+websites that show information on transaction ,blocks ,acounts  etc
+
+etherscan.io
+
+++consensus models
+
+consensus is the process by which blocks get created
+	-validate transactions
+	-secures the network
+
+	proof of work model is used by EN as on april 2017
+
+	incentive driven model
+		fixed reward in tokens
+		transaction fee
+
++proof of work
+	validate transactions and get rewarded
+
+Ethereum Virtual Machine (EVM)
+
+Ethereum : proof of work protocol is called GHOST, algorithm ETHash
+
++Proof of stake
+	node to validate selected by the network | No competition
+		stake - refers to the wealth that users holds on the network
+
+wallet architecture
+	desktop application
+	it's a ethereum node
+	this connects to the EN
+	this synchronizes data from the network
+	it uses Geth to connect to peers o download blocks
+
+Ether faucets
+	faucet.rinkeby.io
+
+
+types of wallet account
+
+account - has an account, protected by private key
+
+contract account - not free to use, is associated with multiple accounts
+
+types of contract account
+	-Single owner
+	-Multi signature - multiple owners
+
+managing contracts in a wallet
+
+2 types of contracts
+	wallet contracts - inbuilt in wallet
+	custom contracts - Dapp developer write this contract and deployed to wallet
+
+watch list
+
+custom tokens ( contracts)
+
+
+++custom contracts
+	- represent the back end logic for the DAPP
+	- Deployed to netwrok using wallet; shows up in wallet
+	- may be deployed to network using tools and scripts
+		- may be added wallet
+		- Dapp needs intrface definition of he contract and the contract address
+
+
+Meta Mask
+
+
+
+geth provides javascript runtime environment
+
+web3 api
+management api overview
+
+supports web3 dapp api
+
+geth also supports additional api, these are avialable over json-rpc
+
+web3 api are used to build dapps over EN
+
+web3 APIs
+	eth - ethereum blockchain related methods
+	net- nodes network status
+	db-read and write to local db
+	shh- P2P messaging over whisper protocol
+
+	API avialable as shorthand like eth, net, db
+
+
+Management API
+	admin apis - node management
+	personal - account management
+	miner - miner management
+	txpool- transaction pool
+
+
+geth javascript API
+admin API
+
+	node management
+		node information
+			nodeInfo
+			datadir
+		node Peers
+			peers
+
+	chain data management
+	Managem RPC interface
+
+personal API: account management
+	account new
+	account list
+	account update
+	account import
+
+	sendTransaction(txn_object,"passphrase")
+
+Miner API: miner management
+	use miner object
+
+
+transaction pools and account nonce
+txpool object
+
+account none
+each account contains a transaction counter
+every transaction under the account has a unique nonce
+
+the transaction object in personal.sendTransaction can specify nonce
+
+if a transaction has a nonce value one greate than the last confirmed trsansaction, then it's put in the pending pool
+else it goes into the queued pool, the pendingpool + queued pool is collectively called as txpool
+this is to prevent reply attack
+
+txpool.status
+txpool.inspect
+txpool.content
+
+debug API
+provides access to non standard RPC methods
+which allow to inspect debug and set debug parameters
+
+web3 APIs
+
+Dapp needs rpc to connect to eth node
+
+web3js is the javascript lib
+web3j is the kava library
+
+web3 exposes many objects
+
+a number of API hace synchronous and asnyc falvours
+
+asnyc uses error-first callback pattern
+
+javascript cannot handle big number values correctly
+web3js uses the BigNumber libary
+it's suggested that account balances should be managed in weis
+
+Development environment
+
+1. Yeoman
+2. Gulp
+3. Bower
+
+
+#install yeoman
+npm install -g yo
+npm install -g generator-webapp
+
+#install gulp
+npm install -g gulp
+
+#install bower
+npm install -g bower
+
+solidity code complilation
+
+contract coding
+	 lisp like language (LLL)
+	 serpent
+	 solidity
+
+	 two parts to solidity output
+	 	bytecode/EVM code which is deployed to the blockchain
+	 	application binary interface , this is the interface definition , needed for contract deployment, and invoking contracts
+
+	 complier options
+
+	 solc --bin
+	 solc --abi
+	 solc --combined-json bin,abi
